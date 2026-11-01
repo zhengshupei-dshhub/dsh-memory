@@ -1,0 +1,45 @@
+{
+  "name": "dsh-memory",
+  "version": "0.2.5",
+  "private": false,
+  "description": "本机长期记忆 + 人设养成 + 自我迭代台账；与 dsh-dafeiyu 联动",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg"
+  ],
+  "scripts": {
+    "test": "node --test test/store.test.js test/sessions.test.js test/persona.test.js test/evolution.test.js"
+  },
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "memory",
+    "persona",
+    "llm-agent"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhengshupei-dshhub/dsh-memory.git"
+  },
+  "homepage": "https://github.com/zhengshupei-dshhub/dsh-memory#readme",
+  "bugs": {
+    "url": "https://github.com/zhengshupei-dshhub/dsh-memory/issues"
+  }
+}

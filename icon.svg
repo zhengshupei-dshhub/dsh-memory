@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Memory">
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="#0f2f45"/>
+  <g stroke="#59d2c8" stroke-width="3" stroke-linecap="round" fill="none">
+    <path d="M18 22c5-4 10-4 14 0s9 4 14 0"/>
+    <path d="M18 32c5-4 10-4 14 0s9 4 14 0"/>
+    <path d="M18 42c5-4 10-4 14 0s9 4 14 0"/>
+  </g>
+  <circle cx="32" cy="51" r="1.8" fill="#59d2c8"/>
+</svg>

@@ -1,0 +1,8 @@
+- insert:
+    - id: memory
+      name: dsh-memory
+      config:
+        # 数据目录默认 $DSH_HOME/memory，这里只调注入预算。
+        pinnedLimit: 12
+        pinnedChars: 1600
+        growthPerDay: 10

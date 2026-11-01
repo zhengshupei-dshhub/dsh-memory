@@ -1,0 +1,21 @@
+# 依赖与构建产物
+node_modules/
+
+# 系统与编辑器
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# 日志
+*.log
+
+# 运行时数据：记忆/人设/台账都在 ~/.dsh/memory，绝不入库
+.env
+.env.*
+*.key
+*.pem
+memories.json
+persona.json
+backlog.jsonl
+journal.jsonl

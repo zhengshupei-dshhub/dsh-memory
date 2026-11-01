@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Long-term Memory",
+    "description": "Durable cross-session memory with a searchable store and full-text recall of past conversations. Local, dependency-free."
+  }
+}
