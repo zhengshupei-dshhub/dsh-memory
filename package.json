@@ -1,6 +1,6 @@
 {
   "name": "dsh-memory",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "private": false,
   "description": "本机长期记忆 + 人设养成 + 自我迭代台账；与 dsh-dafeiyu 联动",
   "type": "module",

@@ -209,7 +209,7 @@ export function apply(ctx, rawConfig) {
         additionalProperties: false,
         required: ['target', 'text'],
         properties: {
-          target: { type: 'string', enum: EVO_TARGETS, description: 'Which plugin: memory | dafeiyu | both.' },
+          target: { type: 'string', enum: EVO_TARGETS, description: 'Which plugin: memory | dafeiyu | doubao | both.' },
           text: { type: 'string', description: 'What to improve, concretely. One item per call.' },
           kind: { type: 'string', enum: EVO_KINDS, description: 'idea | feature | bug | friction | refactor (default idea).' },
           evidence: { type: 'string', description: 'What happened that justifies it (error, wasted step, user request).' },
@@ -238,7 +238,7 @@ export function apply(ctx, rawConfig) {
     ctx.tools.register({
       name: 'evolution_list',
       description:
-        'Review the improvement backlog and the change journal for the two local plugins. Call before starting a self-iteration, or when the user asks what could be improved.',
+        'Review the improvement backlog and the change journal for the local plugins (memory / dafeiyu / doubao). Call before starting a self-iteration, or when the user asks what could be improved.',
       parameters: {
         type: 'object',
         additionalProperties: false,
@@ -472,8 +472,8 @@ export function apply(ctx, rawConfig) {
       name: 'tool:evolution',
       order: 2480,
       text: [
-        '## 自我迭代（两个本地插件）',
-        'dsh-memory 和 dsh-dafeiyu 都是本地源码 + link 安装 + HMR 热加载，可以持续自己改。循环固定四步：',
+        '## 自我迭代（三个本地插件）',
+        'dsh-memory、dsh-dafeiyu、dsh-doubao 都是本机仓库 + git 依赖安装，可以持续自己改。循环固定四步：',
         '- 捕获：遇到摩擦、重复劳动、报错、明显可升级处，用 evolution_note 记一条（写清目标插件、现象、证据），不要只在对话里说。',
         '- 回看：动手前先 evolution_list，挑一条收益最大、风险最小的 open 项，小步改。',
         '- 验证：改完跑 `node ~/DeepSeekHarness/BigFish/selfcheck.mjs`，测试与数据校验全绿才算完成。',
