@@ -429,12 +429,18 @@ export function apply(ctx, rawConfig) {
           properties: {
             query: { type: 'string', description: 'Words likely present verbatim in the transcript.' },
             limit: { type: 'integer', minimum: 1, maximum: 10, description: 'Max sessions (default 4).' },
+            since: { type: 'string', description: 'Only include sessions created on/after this date (ISO, e.g. 2026-11-01). Filters before decompressing.' },
+            before: { type: 'string', description: 'Only include sessions created before this date (ISO). Filters before decompressing.' },
+            cwd: { type: 'string', description: 'Only include sessions whose working directory contains this substring (e.g. BigFish). Filters by folder name before decompressing.' },
           },
         },
         output: textOutput(),
         async execute(args) {
           const hits = searchTranscripts(config.sessionsRoot, String(args.query ?? ''), {
             limit: args.limit ?? 4,
+            since: args.since,
+            before: args.before,
+            cwd: args.cwd,
           })
           if (!hits.length) {
             return `历史会话里没有匹配 ${JSON.stringify(args.query)}。（检索目录：${config.sessionsRoot}）`
