@@ -10,6 +10,7 @@
  * - 一段系统提示（含置顶记忆），告诉模型何时存取、如何存取
  */
 
+import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { MemoryStore, isoDate, KINDS, SCOPES } from './lib/store.js'
@@ -454,6 +455,53 @@ export function apply(ctx, rawConfig) {
           }
           lines.push('需要更多上下文时用 session_query 的 readEvent 展开这些会话；确认为长期事实的结论请 memory_save。')
           return lines.join('\n')
+        },
+      }),
+    )
+
+    // 运行态自检：热重载后确认插件已加载到新版本，工具已注册。
+    registrations.push(
+      ctx.tools.register({
+        name: 'memory_health',
+        description:
+          'Runtime self-check for the dsh-memory plugin: returns the loaded version, data directory, counts of memories/persona/evolution entries, and the list of tools this plugin registered. Call after hot-reloading a plugin patch to verify the new code is live, instead of guessing.',
+        parameters: {
+          type: 'object',
+          additionalProperties: false,
+          properties: {},
+        },
+        output: textOutput(),
+        async execute() {
+          let pkgVersion = 'unknown'
+          try {
+            // 读就近的 package.json；找不到就退化为 unknown，不阻塞自检。
+            const pkgPath = path.join(path.dirname(new URL(import.meta.url).pathname), 'package.json')
+            pkgVersion = JSON.parse(fs.readFileSync(pkgPath, 'utf8')).version ?? 'unknown'
+          } catch {}
+          let memoryCount = null
+          try {
+            const memFile = path.join(config.root, 'memories.json')
+            const arr = JSON.parse(fs.readFileSync(memFile, 'utf8'))
+            memoryCount = Array.isArray(arr) ? arr.length : null
+          } catch {}
+          const evoOpen = evolution.list?.({ status: 'open' })?.length ?? null
+          const stats = {
+            version: pkgVersion,
+            root: config.root,
+            evolutionDir: config.evolutionDir,
+            memoryCount,
+            personaDaysKnown: persona.read?.()?.identity?.daysKnown ?? null,
+            growthEvents: persona.read?.()?.stats?.growthEvents ?? null,
+            evolutionOpen: evoOpen,
+            tools: [
+              'persona_read', 'persona_grow', 'persona_diary',
+              'evolution_note', 'evolution_list', 'evolution_log',
+              'memory_save', 'memory_search', 'memory_forget', 'memory_recall',
+              'memory_health',
+            ],
+            loadedAt: new Date().toISOString(),
+          }
+          return JSON.stringify(stats, null, 2)
         },
       }),
     )
